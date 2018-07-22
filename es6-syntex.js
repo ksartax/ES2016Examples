@@ -159,3 +159,38 @@ console.log(nr2); // 2
 let dids_o = {d_id: 1, d_id2: 2};
 let {d_id, d_id2} = dids_o;
 console.log(d_id); // 1
+
+function valid(data) {
+    return new Promise(function(resolve, reject) {
+         console.log("valid");
+         if (data == 1) {
+           return resolve(data);
+         }
+
+         return reject("Bład");
+     })
+ }
+
+ function send(data, context) {
+     return new Promise(function(resolve, reject) {
+         setTimeout(function() {
+             console.log("send");
+             console.log(context);
+             if (data == 1) {
+                 return resolve(2);
+             } else {
+                 return reject("Bład");
+             }
+         }, 500);
+     })
+ }
+
+ valid("1")
+  .then(v => send(v, this))
+  .then(function (data) {
+      console.log(data);
+  })
+  .catch(function (data) {
+     console.log("ca");
+      console.log(data);
+  });
